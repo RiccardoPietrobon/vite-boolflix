@@ -3,29 +3,36 @@
 export default {
   data() {
     return {
-      title: "Header",
+      term: "",
     }
-  }
+  },
+  props: {
+    placeholder: String,
+  },
 
-  // components: {
-  //   MyComponent,
-  // },
+  emits: ["on-search"],
+
+  methods: {
+    clear() {
+      this.term = "";
+    },
+    search() {
+      this.$emit("on-search", this.term);
+    },
+  },
 };
 </script>
 
-<template>
-  <div class="bg-dark">
 
-    <div class="header d-flex container p-5">
-      <h1 class="text-danger">BOOLFLIX</h1>
-      <div class="input-group input-group-sm">
-        <input type="text" class="form-control" placeholder="Recipient's username"
-          aria-label="Recipient's username with two button addons" aria-describedby="inputGroup-sizing-sm">
-        <button class="btn btn-outline-secondary" type="button">Button</button>
-        <button class="btn btn-outline-secondary" type="button">Button</button>
-      </div>
+<template>
+  <form @submit.prevent>
+    <div class="input-group input-group-sm">
+      <input type="text" class="form-control" :placeholder="placeholder" v-model="term">
+      <button class="btn btn-outline-secondary" type="button" @click="search">Search</button>
+      <button class="btn btn-outline-secondary" type="button" @click="clear">Reset</button>
     </div>
-  </div>
+
+  </form>
 </template>
 
 <style lang="scss" scoped></style>
