@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 
 
 export default {
@@ -7,7 +8,27 @@ export default {
         titoloCer: String,
         lingua: String,
         valutazione: Number,
-    }
+    },
+
+    data() {
+        return {
+            endpointFlag1: "https://flagcdn.com/20x15/",
+            endpointFlag2: ".png",
+        }
+    },
+
+    methods: {
+        fetchFlag(urlFlag) {
+            axios.get(urlFlag)
+        },
+        fetchFiltered(term) {
+            this.fetchCards(`${this.endpointFlag}${lingua}`);
+        },
+    },
+    created() {
+        this.fetchFlag(this.endpoint);
+    },
+
 
 
 };
@@ -19,7 +40,7 @@ export default {
         <div class="box text-ceter">
             <h3 class="p-2 text-white text-ceter">{{ titolo }}</h3>
             <h3 class="p-2 text-white text-ceter">{{ titoloCer }}</h3>
-            <h3 class="p-2 text-white text-ceter">{{ lingua }}</h3>
+            <img :src="endpointFlag1 + lingua + endpointFlag2">
             <h3 class="p-2 text-white text-ceter">{{ valutazione }}</h3>
         </div>
     </div>
