@@ -16,40 +16,28 @@ export default {
   },
 
   created() {
-    this.fetchCardsFilms(this.endpointFilm);
-    this.fetchCardsSeries(this.endpointSeries);
+    this.fetchCards(this.endpointFilm, this.endpointSeries);
   },
 
   methods: {
-    fetchCardsFilms(url) {
+
+    fetchCards(urlFilm, urlSerie) {
       axios
-        .get(url)
+        .get(urlFilm, urlSerie)
         /* prendo la richiesta */
-        .then((response) => {
+        .then((responseFilm, responseSerie) => {
           /* riempio l'array */
-          store.arrayFilms = response.data.results;
-          console.log(response.data.results);
+          store.arrayFilms = responseFilm.data.results;
+          console.log(responseFilm.data.results);
+
+          store.arraySeries = responseSerie.data.results;
+          console.log(responseSerie.data.results);
+
         })
 
     },
-    fetchFilteredFilms(term) {
-      this.fetchCardsFilms(`${this.endpointFilm}&query=${term}`);
-    },
-
-
-    fetchCardsSeries(url) {
-      axios
-        .get(url)
-        /* prendo la richiesta */
-        .then((response) => {
-          /* riempio l'array */
-          store.arraySeries = response.data.results;
-          console.log(response.data.results);
-        })
-
-    },
-    fetchFilteredSeries(term) {
-      this.fetchCardsSeries(`${this.endpointSeries}&query=${term}`);
+    fetchFiltered(term) {
+      this.fetchCards(`${this.endpointFilm}&query=${term}`, `${this.endpointSeries}&query=${term}`);
     },
 
   },
@@ -63,7 +51,7 @@ export default {
   <div class="header bg-dark">
     <div class="d-flex container p-5 justify-content-between">
       <h1 class="text-danger">BOOLFLIX</h1>
-      <HeaderSearch @on-search="(fetchFilteredFilms, fetchFilteredSeries)" placeholder="Cerca" />
+      <HeaderSearch @on-search="fetchFiltered" placeholder="Cerca" />
     </div>
   </div>
 
