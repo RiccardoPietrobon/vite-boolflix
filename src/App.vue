@@ -23,16 +23,21 @@ export default {
 
     fetchCards(urlFilm, urlSerie) {
       axios
-        .get(urlFilm, urlSerie)
+        .get(urlFilm)
         /* prendo la richiesta */
-        .then((responseFilm, responseSerie) => {
+        .then((responseFilm) => {
           /* riempio l'array */
           store.arrayFilms = responseFilm.data.results;
           console.log(responseFilm.data.results);
+        })
 
+      axios
+        .get(urlSerie)
+        /* prendo la richiesta */
+        .then((responseSerie) => {
+          /* riempio l'array */
           store.arraySeries = responseSerie.data.results;
           console.log(responseSerie.data.results);
-
         })
 
     },
@@ -56,15 +61,18 @@ export default {
   </div>
 
   <div class="main bg-dark">
-    <div class="d-flex container p-5">
+    <div class="container p-5">
+      <h2 class="text-danger">Film</h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
         <CardFilms v-for="singleFilm in store.arrayFilms" :titolo="singleFilm.title"
           :titoloCer="singleFilm.original_title" :lingua="singleFilm.original_language"
           :valutazione="singleFilm.vote_average" />
       </div>
+      <h2 class="text-danger">Serie</h2>
+
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-        <CardSeries v-for="singleSerie in store.arraySeries" :titolo="singleSerie.title"
-          :titoloCer="singleSerie.original_title" :lingua="singleSerie.original_language"
+        <CardSeries v-for="singleSerie in store.arraySeries" :titolo="singleSerie.name"
+          :titoloCer="singleSerie.original_name" :lingua="singleSerie.original_language"
           :valutazione="singleSerie.vote_average" />
       </div>
     </div>
