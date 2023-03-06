@@ -1,3 +1,4 @@
+
 <script>
 import axios from 'axios';
 
@@ -16,20 +17,6 @@ export default {
             endpointFlag2: ".png",
         }
     },
-
-    methods: {
-        fetchFlag(urlFlag) {
-            axios.get(urlFlag)
-        },
-        fetchFiltered(term) {
-            this.fetchCards(`${this.endpointFlag}${lingua}`);
-        },
-    },
-    created() {
-        this.fetchFlag(this.endpoint);
-    },
-
-
 
 };
 </script>
