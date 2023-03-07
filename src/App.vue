@@ -1,7 +1,6 @@
 <script>
 import HeaderSearch from "./components/HeaderSearch.vue";
-import CardFilms from "./components/CardFilms.vue";
-import CardSeries from "./components/CardSeries.vue";
+import OneCard from "./components/OneCard.vue";
 import axios from 'axios';
 import { store } from "./components/data/store";
 
@@ -47,7 +46,7 @@ export default {
 
   },
 
-  components: { HeaderSearch, CardFilms, CardSeries },
+  components: { HeaderSearch, OneCard },
 
 };
 </script>
@@ -64,16 +63,15 @@ export default {
     <div class="container p-5">
       <h2 class="text-danger">Film</h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-        <CardFilms v-for="singleFilm in store.arrayFilms" :titolo="singleFilm.title"
-          :titoloCer="singleFilm.original_title" :lingua="singleFilm.original_language"
-          :valutazione="singleFilm.vote_average" />
+        <OneCard v-for="singleFilm in store.arrayFilms" :titolo="singleFilm.title" :titoloCer="singleFilm.original_title"
+          :lingua="singleFilm.original_language" :valutazione="singleFilm.vote_average" :img="singleFilm.poster_path" />
       </div>
       <h2 class="text-danger">Serie</h2>
 
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-        <CardSeries v-for="singleSerie in store.arraySeries" :titolo="singleSerie.name"
+        <OneCard v-for="singleSerie in store.arraySeries" :titolo="singleSerie.name"
           :titoloCer="singleSerie.original_name" :lingua="singleSerie.original_language"
-          :valutazione="singleSerie.vote_average" />
+          :valutazione="singleSerie.vote_average" :img="singleSerie.poster_path" />
       </div>
     </div>
   </div>
