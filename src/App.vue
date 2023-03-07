@@ -52,8 +52,8 @@ export default {
 </script>
 
 <template>
-  <div class="header bg-dark">
-    <div class="d-flex container p-5 justify-content-between">
+  <div class="header bg-dark d-flex">
+    <div class="d-flex flex-column flex-md-row container p-2 justify-content-between align-items-center">
       <h1 class="text-danger">BOOLFLIX</h1>
       <HeaderSearch @on-search="fetchFiltered" placeholder="Cerca" />
     </div>
@@ -61,17 +61,36 @@ export default {
 
   <div class="main bg-dark">
     <div class="container p-5">
-      <h2 class="text-danger">Film</h2>
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-        <OneCard v-for="singleFilm in store.arrayFilms" :titolo="singleFilm.title" :titoloCer="singleFilm.original_title"
-          :lingua="singleFilm.original_language" :valutazione="singleFilm.vote_average" :img="singleFilm.poster_path" />
-      </div>
-      <h2 class="text-danger">Serie</h2>
 
-      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-        <OneCard v-for="singleSerie in store.arraySeries" :titolo="singleSerie.name"
-          :titoloCer="singleSerie.original_name" :lingua="singleSerie.original_language"
-          :valutazione="singleSerie.vote_average" :img="singleSerie.poster_path" />
+      <div v-if="store.arrayFilms.length"> <!-- se l'array è pieno -->
+
+        <h2 class="text-danger">Film</h2>
+        <!-- box films -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
+          <OneCard v-for="singleFilm in store.arrayFilms" :titolo="singleFilm.title"
+            :titoloCer="singleFilm.original_title" :lingua="singleFilm.original_language"
+            :valutazione="singleFilm.vote_average" :img="singleFilm.poster_path" />
+        </div>
+
+      </div>
+
+      <div v-if="store.arraySeries.length"> <!-- se l'array è pieno -->
+
+        <h2 class="text-danger">Serie</h2>
+        <!-- box series -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
+          <OneCard v-for="singleSerie in store.arraySeries" :titolo="singleSerie.name"
+            :titoloCer="singleSerie.original_name" :lingua="singleSerie.original_language"
+            :valutazione="singleSerie.vote_average" :img="singleSerie.poster_path" />
+        </div>
+
+      </div>
+
+      <div v-if="!store.arrayFilms.length && !store.arraySeries.length">
+        <h2 class="text-danger">
+          Inizia con Boolflix
+        </h2>
+        <p class="text-light">Ricerca i tuoi film o serieTV preferite nella barra di ricerca</p>
       </div>
     </div>
   </div>

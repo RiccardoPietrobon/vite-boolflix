@@ -28,8 +28,8 @@ export default {
   <form @submit.prevent>
     <div class="input-group input-group-sm">
       <input type="text" class="form-control" :placeholder="placeholder" v-model="term">
-      <button class="btn btn-outline-secondary" type="button" @click="search">Search</button>
-      <button class="btn btn-outline-secondary" type="button" @click="clear">Reset</button>
+      <button class="btn btn-danger" type="button" @click="search">Search</button>
+      <button class="btn btn-danger" type="button" @click="clear">Reset</button>
     </div>
 
   </form>

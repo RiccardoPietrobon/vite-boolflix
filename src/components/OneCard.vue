@@ -13,7 +13,7 @@ export default {
         return {
             endpointFlag1: "https://flagcdn.com/20x15/",
             endpointFlag2: ".png",
-            endpointCop: "http://image.tmdb.org/t/p/w185/",
+            endpointCop: "http://image.tmdb.org/t/p/w342/",
             star: Math.floor(this.valutazione / 2),
         }
     },
@@ -44,10 +44,14 @@ export default {
             </div>
 
             <div class="flip-card-back">
-                <h3 class="p-2 text-white text-center">{{ titolo }}</h3>
-                <h3 class="p-2 text-white text-center">{{ titoloCer }}</h3>
-                <img :src="getFlag(lingua)">
-                <span class="">
+                <h4 class="p-2 text-white">Titolo: {{ titolo }}</h4>
+                <h4 class="p-2 text-white">Titolo originale: {{ titoloCer }}</h4>
+                <div class="d-flex px-2">
+                    <h4>Paese: </h4>
+                    <img :src="getFlag(lingua)" class="ml-1">
+                </div>
+                <span class="d-flex align-items-center">
+                    <h4>Critica: </h4>
                     <font-awesome-icon icon="fa-solid fa-star" class="text-white" v-for="i in star" />
                     <font-awesome-icon icon="fa-regular fa-star" class="text-white" v-for="i in (5 - star)" />
                 </span>
@@ -61,13 +65,14 @@ export default {
 .flip-card {
     background-color: transparent;
     perspective: 1000px;
+    width: 300px;
+    height: 400px;
 }
 
 .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -75,6 +80,7 @@ export default {
 
 .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
+    cursor: pointer;
 }
 
 .flip-card-front,
@@ -86,14 +92,20 @@ export default {
     backface-visibility: hidden;
 }
 
-.flip-card-front {
-    background-color: #bbb;
-    color: black;
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
 }
 
 .flip-card-back {
     background-color: black;
     color: white;
     transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+    padding: 15px;
+
 }
 </style>
